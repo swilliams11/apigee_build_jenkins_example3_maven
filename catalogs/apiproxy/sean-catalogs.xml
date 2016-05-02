@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="1" name="sean-catalogs">
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <CreatedAt>1452633656086</CreatedAt>
+    <CreatedBy>swilliams@apigee.com</CreatedBy>
+    <Description></Description>
+    <DisplayName>sean-catalogs</DisplayName>
+    <LastModifiedAt>1452634995510</LastModifiedAt>
+    <LastModifiedBy>swilliams@apigee.com</LastModifiedBy>
+    <Policies>
+        <Policy>Response-Cache-1</Policy>
+        <Policy>Verify-API-Key-1</Policy>
+        <Policy>XML-to-JSON-1</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources/>
+    <TargetServers/>
+    <TargetEndpoints>
+        <TargetEndpoint>default</TargetEndpoint>
+    </TargetEndpoints>
+    <validate>false</validate>
+</APIProxy>
