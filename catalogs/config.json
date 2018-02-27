@@ -30,7 +30,7 @@
                     "tokens": [
                         {
                             "xpath": "/TargetEndpoint/HTTPTargetConnection/URL",
-                            "value": "http://weather.yahooapis.com"
+                            "value": "https://httpbin.org"
                         }
                     ]
                 }
@@ -79,7 +79,7 @@
                     "tokens": [
                         {
                             "xpath": "/TargetEndpoint/HTTPTargetConnection/URL",
-                            "value": "http://weather.yahooapis.com"
+                            "value": "https://httpbin.org"
                         }
                     ]
                 }
