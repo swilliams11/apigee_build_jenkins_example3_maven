@@ -3,17 +3,8 @@
     <Description/>
     <PreFlow name="PreFlow">
         <Request>
-            <Step>
-                <Name>Verify-API-Key-1</Name>
-            </Step>
-            <Step>
-                <Name>Response-Cache-1</Name>
-            </Step>
         </Request>
         <Response>
-            <Step>
-                <Name>XML-to-JSON-1</Name>
-            </Step>
         </Response>
     </PreFlow>
     <Flows/>
