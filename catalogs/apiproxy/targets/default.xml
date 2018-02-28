@@ -8,9 +8,7 @@
     <Flows/>
     <PostFlow name="PostFlow">
         <Response>
-            <Step>
-                <Name>Response-Cache-1</Name>
-            </Step>
+          
         </Response>
     </PostFlow>
     <HTTPTargetConnection>
