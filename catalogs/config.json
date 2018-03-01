@@ -4,7 +4,7 @@
             "name": "test",
             "policies": [
               {
-                  "name": "XML-to-JSON-1",
+                  "name": "XML-to-JSON-1.xml",
                   "tokens": [
                       {
                           "xpath": "/XMLToJSON/Format",
