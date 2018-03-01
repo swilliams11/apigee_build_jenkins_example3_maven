@@ -8,10 +8,10 @@
     <Flows/>
     <PostFlow name="PostFlow">
         <Response>
-          
+
         </Response>
     </PostFlow>
     <HTTPTargetConnection>
-        <URL>http://api.usergrid</URL>
+        <URL>http://api.usergrid.com</URL>
     </HTTPTargetConnection>
 </TargetEndpoint>
