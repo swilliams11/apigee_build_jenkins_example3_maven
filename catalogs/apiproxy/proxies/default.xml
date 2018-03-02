@@ -11,9 +11,9 @@
       <Flow name="flow status">
            <Description/>
            <Request>
-             <Step>
+             <!--Step>
                    <Name>RF-400BadRequest</Name>
-               </Step>
+               </Step-->
            </Request>
            <Response/>
            <Condition>(proxy.pathsuffix MatchesPath "/status/*") and (request.verb = "GET")</Condition>
