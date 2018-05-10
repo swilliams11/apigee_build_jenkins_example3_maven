@@ -16,7 +16,8 @@ This section describes how to configure Jenkins so that it will
   * It should be noted that this will create a new revision in Apigee Edge in the prod environment; it will not deploy the same proxy revision in test to prod. This would require a slightly different setup.
 
 ## Jenkins Jobs
-There are three Jenkins Jobs
+There are three Jenkins Jobs. 
+
 ![](./media/jenkins-jobs.png)
 
 1. `apigee_build_jenkins_example3_maven_current`
