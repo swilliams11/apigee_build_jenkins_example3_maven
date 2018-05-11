@@ -5,7 +5,7 @@ This repository demonstrates how to configure Jenkins to deploy Apigee Edge prox
 
 There are two sections:
 1. [Jenkins Build Triggered Manually](#jenkins-build-triggered-manually)
-2. [Jenkins Build Triggered from Github commit hook](#jenkins-build-triggered-from-github commit-hook)
+2. [Jenkins Build Triggered from Github commit hook](#jenkins-build-triggered-from-github-commit-hook)
 
 # Jenkins Build Triggered Manually
 This section describes how to configure Jenkins so that it will
