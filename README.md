@@ -4,8 +4,8 @@
 This repository demonstrates how to configure Jenkins to deploy Apigee Edge proxies and execute tests.  
 
 There are two sections:
-1. Jenkins Build Triggered Manually
-2. Jenkins Build Triggered from Github commit hook
+1. [Jenkins Build Triggered Manually](#jenkins-build-triggered-manually)
+2. [Jenkins Build Triggered from Github commit hook](#jenkins-build-triggered-from-github commit-hook)
 
 # Jenkins Build Triggered Manually
 This section describes how to configure Jenkins so that it will
@@ -122,7 +122,7 @@ This job builds the Apigee bundle and deploys to the prod environment.
 
 ![](./media/manual-job-prod-presteps-build.png)
 
-* Final step is to push the code back to Github. The only reason for this is it uses branches.  This demo does not use branches and merge commits so there is no need to merge the code back to the remote repository.
+* Final step is to push the code back to Github. The only reason for this is if you are using branches.  This demo does not use branches and merge commits so there is no need to merge the code back to the remote repository.
 
 ![](./media/manual-job-prod-postbuild.png)
 
@@ -130,6 +130,9 @@ This job builds the Apigee bundle and deploys to the prod environment.
 ## TODOS
 1. Update JMeter test scripts so that configuration can be passed from the command line.
 2. Update the second job to pass config via the command line and use the tests in this repository instead of a Gitlab repo.
+
+# Jenkins Build Triggered from Github commit hook
+
 
 # Scratch Pad
 Tests Jenkins post-commit hook to my public openshift-jenkins application.
