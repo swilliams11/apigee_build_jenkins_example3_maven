@@ -138,22 +138,124 @@ This demo uses feature branches.  The typical process is:
 * a developer would clone the master branch
 * create a new feature branch based off the master branch and make all of their changes to that branch.
 * add test cases and test in the Apigee dev environment
-* submit a merge request to the master branch or whatever branch they cloned from
+* submit a pull request to the master branch or whatever branch they cloned from
 
-## Demo
-This section describes a typical Apigee developer updating a proxy in Github.
+## Add New Feature Demo
+This section describes the typical Apigee developer adding a new feature (updating a proxy) in Github.
 
-1. Clone this repository.
+1. Clone this repository.  Master branch will be checkout by default.
+`git branch` will show all the branches available and the current one that you are on.
+
 ```
 git clone https://github.com/swilliams11/apigee_build_jenkins_example3_maven.git
+git branch
 ```
 
-2. Make a new branch.
+2. Create a new branch from the master branch on your local machine.
+```
+git checkout -b feature6
+```
+
+3. Add a new flow to the proxy. Open the `default.xml` file located in `catalogs/apiproxy/proxies`. Add the following code to the `<Flows>` element below the element named `<Flow name="flow status"></Flow>`
+
+```xml
+  <Flow name="Create Catalog">
+       <Description>Create a new catalog item.</Description>
+       <Request>
+       </Request>
+       <Response/>
+       <Condition>(proxy.pathsuffix MatchesPath "/") and (request.verb = "POST")</Condition>
+   </Flow>
+```
+
+4. Save the code and commit it to your local repository.
+```
+git commit -am "added a new flow for feature 6"
+```
+
+5. Push the code to your remote branch.  If you go back to your Github repository you will see the new feature branch created.  
+
+```
+git push origin feature6
+```
+
+6. Create a pull request in Github to merge the feature branch with the master branch.
+  * starts the Jenkins job that is listening for pull request
+  * deploy the code to the test environment
+  * test code deployed to test environment and if all tests pass then merge the feature branch into master
+  * close the pull request
+  * you can optionally delete the feature branch as well  
 
 
 ## Github Configuration
+The following shows the Github configuration that is enabled to support
 
 ## Jenkins Configuration
+There are three jobs here as well.
+1. `pullrequestbuilder_apigee_build_jenkins_example3_maven`
+  * listens for pull requests
+  * deploys proxy to test environment
+  * executes job to test deployment
+  * merges code to master branch
+  * closes pull request
+2. `pullrequestbuilder_apigee_build_jenkins_example3_maven_tests`
+  * executes JMeter tests
+  * reports results
+3. `githook_apigee_build_jenkins_example3_maven_prod`
+  * listens for commits on the master branch
+  * deploys code to prod environment
+  * should also execute test against prod env
+  * would theoretically deploy to next higher environment
+
+### Prerequisites
+* [Github pull request plugin](https://wiki.jenkins.io/display/JENKINS/GitHub+pull+request+builder+plugin)
+* [Github plugin](https://wiki.jenkins.io/display/JENKINS/GitHub+Plugin)
+
+### pullrequestbuilder_apigee_build_jenkins_example3_maven
+
+* This is a Github project and includes parameters.
+* I should remove the parent_module = yes parameter.
+
+![](./media/githook-1stjob-parameters.png)
+
+* Using the Github pull request plugin to listen for pull requests
+* fetches code from pull request
+* merges code back to the master branch locally (on Jenkins)
+
+![](./media/githook-1stjob-sourcecode.png)
+
+* Uses Github Pull Request Builder
+* make sure "Use github hooks for build triggering" is selected.
+
+![](./media/githook-1stjob-buildtrigger.png)
+
+
+* Build environment uses Apigee org admin username and password.
+
+![](./media/githook-1stjob-buildenvbindings.png)
+
+* Build
+  * `catalogs/pom.xml`
+  * `install -Ptest -Dusername=$ae_username -Dpassword=$ae_password   -Dorg=$ae_org`
+* Post Steps
+  * `pullrequestbuilder_apigee_build_jenkins_example3_maven_tests`
+  * block current build until the testing is complete and fail the current build if the test build is unstable or fails.
+
+![](./media/githook-1stjob-buildpostbuild.png)
+
+
+* Post build actions
+  * Archive the bundle
+    * `catalogs/target/*.zip`
+  * Merge the code and push it back to the remote master branch
+
+![](./media/githook-1stjob-postbuildaction.png)
+
+
+### pullrequestbuilder_apigee_build_jenkins_example3_maven_tests
+
+### githook_apigee_build_jenkins_example3_maven_prod
+
 
 # Scratch Pad
 Tests Jenkins post-commit hook to my public openshift-jenkins application.
