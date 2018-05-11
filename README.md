@@ -132,7 +132,28 @@ This job builds the Apigee bundle and deploys to the prod environment.
 2. Update the second job to pass config via the command line and use the tests in this repository instead of a Gitlab repo.
 
 # Jenkins Build Triggered from Github commit hook
+This section describes how to demo the Jenkins Build triggered from a Github commit and it also describes the Jenkins jobs.  
 
+This demo uses feature branches.  The typical process is:
+* a developer would clone the master branch
+* create a new feature branch based off the master branch and make all of their changes to that branch.
+* add test cases and test in the Apigee dev environment
+* submit a merge request to the master branch or whatever branch they cloned from
+
+## Demo
+This section describes a typical Apigee developer updating a proxy in Github.
+
+1. Clone this repository.
+```
+git clone https://github.com/swilliams11/apigee_build_jenkins_example3_maven.git
+```
+
+2. Make a new branch.
+
+
+## Github Configuration
+
+## Jenkins Configuration
 
 # Scratch Pad
 Tests Jenkins post-commit hook to my public openshift-jenkins application.
