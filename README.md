@@ -206,6 +206,8 @@ https://developer.github.com/changes/2018-04-25-github-services-deprecation/
 
 https://developer.github.com/v3/guides/replacing-github-services/
 
+**Could use this Jenkins plugin instead**
+https://wiki.jenkins.io/display/JENKINS/Generic+Webhook+Trigger+Plugin
 
 ## Jenkins Configuration
 There are three jobs here as well.
@@ -337,6 +339,11 @@ Select **Github hook trigger for GITScm pooling**
 * `catalogs/target/*.zip`
 
 ![](./media/githook-prod-postbuildaction.png)
+
+## TODOS
+* update Jenkins build to use this new generic webhook instead.
+https://wiki.jenkins.io/display/JENKINS/Generic+Webhook+Trigger+Plugin
+
 
 # Scratch Pad
 Tests Jenkins post-commit hook to my public openshift-jenkins application.
