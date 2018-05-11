@@ -316,7 +316,7 @@ None. This job is called by the previous job.
 #### Build Trigger
 Select **Github hook trigger for GITScm pooling**
 
-**Keep in mind that this feature is not deprecated.**
+**Keep in mind that this feature is now deprecated.**
 
 #### Build Env and Bindings
 * Delete the workspace and use a secret text file for the Apigee org admin and password that are passed to the Apigee Maven build command.
