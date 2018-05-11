@@ -35,6 +35,7 @@ Why have the second build?  The reason is that JMeter needs some configuration b
 
 ## apigee_build_jenkins_example3_maven_current
 
+### General Config and parameters
 This is a maven build job.
 
 * Grants permission to another job to copy artifacts.
@@ -44,18 +45,22 @@ This is a maven build job.
 
 ![](./media/manual-job-parameters.png)
 
+### Source Code
 * Using Git to pull the repo and pulls from the master branch only.
 
 ![](./media/manual-job-sourcecode.png)
 
+### Build Triggers
 * No build triggers because you have to trigger this job manually.
 
 ![](./media/manual-job-buildtriggers.png)
 
+### Build Env
 * The build environment is set to delete the workspace first and use a secret text file for the Apigee Edge org admin username and password for the Maven deployment command.
 
 ![](./media/manual-job-buildenv.png)
 
+### Post Build
 * No Presteps
 * Build
   * Root POM: `catalogs/pom.xml`
@@ -68,14 +73,17 @@ This is a maven build job.
 ## apigee_build_jenkins_example3_maven_tests
 This job executes the JMeter tests against the proxy deployed to the test environment.
 
+### Source Code
 * The source code is stored in a private Gitlab repository.
 
 ![](./media/manual-job-test-sourcecode.png)
 
+### Build Triggers
 * This project is only built if the first job succeeds.
 
 ![](./media/manual-job-test-buildtrigger.png)
 
+### Build Env and Build
 * Delete the current workspace before building.
 * Build
   * Root POM: `pom.xml`
@@ -83,7 +91,7 @@ This job executes the JMeter tests against the proxy deployed to the test enviro
 
 ![](./media/manual-job-test-buildenvbuild.png)
 
-
+### Post build action
 * Public the performance report.
   * Source data files: `**/*.jtl`
   * Select Mode: `Error Threshold` which means that the build will be marked as unstable when 1% of the test failed and the build will fail when 1% of the tests fail.  
@@ -94,22 +102,24 @@ This job executes the JMeter tests against the proxy deployed to the test enviro
 ## project apigee_build_jenkins_example3_maven_prod
 This job builds the Apigee bundle and deploys to the prod environment.
 
+### General Settings
 * The Apigee Edge org and environment are build parameters.
 
 ![](./media/manual-job-prod-parameters.png)
 
-
+### Build triggers
 * There is no source control for this project, because it uses the workspace from the first build.  This ensures that the source code has not changed between builds.
 * Build Triggers
   * This job is executed only if the job that executes the JMeter tests succeeds.
 
 ![](./media/manual-job-prod-sourecode-buildtrigger.png)
 
-
+### Build Env
 * Delete the workspace and use a secret text file for the Apigee org admin and password that are passed to the Apigee Maven build command.
 
 ![](./media/manual-job-prod-buildenv.png)
 
+### Presteps and Build
 * Presteps
   * copies workspace from first job that executed successfully.
   * Artifacts not to copy: `apigee_build_jenkins_example3_maven_current/apigee:catalogs_maven`
@@ -122,6 +132,7 @@ This job builds the Apigee bundle and deploys to the prod environment.
 
 ![](./media/manual-job-prod-presteps-build.png)
 
+### Post Build
 * Final step is to push the code back to Github. The only reason for this is if you are using branches.  This demo does not use branches and merge commits so there is no need to merge the code back to the remote repository.
 
 ![](./media/manual-job-prod-postbuild.png)
@@ -188,7 +199,13 @@ git push origin feature6
 
 
 ## Github Configuration
-The following shows the Github configuration that is enabled to support
+The following shows the Github configuration that should be enabled to support commmit hooks.
+
+**Looks like Post commit hooks is deprecated. Will need to find an alternative solution.**
+https://developer.github.com/changes/2018-04-25-github-services-deprecation/
+
+https://developer.github.com/v3/guides/replacing-github-services/
+
 
 ## Jenkins Configuration
 There are three jobs here as well.
@@ -213,27 +230,31 @@ There are three jobs here as well.
 
 ### pullrequestbuilder_apigee_build_jenkins_example3_maven
 
+#### General Config
 * This is a Github project and includes parameters.
 * I should remove the parent_module = yes parameter.
 
 ![](./media/githook-1stjob-parameters.png)
 
+#### Source Code Config
 * Using the Github pull request plugin to listen for pull requests
 * fetches code from pull request
 * merges code back to the master branch locally (on Jenkins)
 
 ![](./media/githook-1stjob-sourcecode.png)
 
+#### Build Trigger
 * Uses Github Pull Request Builder
 * make sure "Use github hooks for build triggering" is selected.
 
 ![](./media/githook-1stjob-buildtrigger.png)
 
-
+#### Build Environment and Bindings
 * Build environment uses Apigee org admin username and password.
 
 ![](./media/githook-1stjob-buildenvbindings.png)
 
+#### Build and Post Build Steps
 * Build
   * `catalogs/pom.xml`
   * `install -Ptest -Dusername=$ae_username -Dpassword=$ae_password   -Dorg=$ae_org`
@@ -243,7 +264,7 @@ There are three jobs here as well.
 
 ![](./media/githook-1stjob-buildpostbuild.png)
 
-
+#### Post Build Actions
 * Post build actions
   * Archive the bundle
     * `catalogs/target/*.zip`
@@ -254,8 +275,68 @@ There are three jobs here as well.
 
 ### pullrequestbuilder_apigee_build_jenkins_example3_maven_tests
 
+
+#### General Config
+Nothing is selected here.
+
+#### Source Code
+![](./media/manual-job-test-sourcecode.png)
+
+#### Build Trigger
+None. This job is called by the previous job.  
+
+#### Build environment and Build
+* Delete the current workspace before building.
+* Build
+  * Root POM: `pom.xml`
+  * Goals and options: `clean verify -Ptest`
+
+![](./media/manual-job-test-buildenvbuild.png)
+
+#### Post Build Actions
+* Public the performance report.
+  * Source data files: `**/*.jtl`
+  * Select Mode: `Error Threshold` which means that the build will be marked as unstable when 1% of the test failed and the build will fail when 1% of the tests fail.  
+
+![](./media/manual-job-test-postbuildaction.png)
+
+
 ### githook_apigee_build_jenkins_example3_maven_prod
 
+#### General Settings
+
+![](./media/githook-prod-general.png)
+
+#### Source Code
+
+![](./media/githook-prod-sourcecode.png)
+
+#### Build Trigger
+Select **Github hook trigger for GITScm pooling**
+
+**Keep in mind that this feature is not deprecated.**
+
+#### Build Env and Bindings
+* Delete the workspace and use a secret text file for the Apigee org admin and password that are passed to the Apigee Maven build command.
+
+![](./media/manual-job-prod-buildenv.png)
+
+#### Build and Post Build Steps
+* Build
+  * `catalogs/pom.xml`
+  * `install -Pprod -Dusername=$ae_username -Dpassword=$ae_password   -Dorg=$ae_org`
+* Post Steps
+  * `pullrequestbuilder_apigee_build_jenkins_example3_maven_tests`
+  * block current build until the testing is complete and fail the current build if the test build is unstable or fails.
+
+**Note that this step should execute tests against the prod environment**
+
+![](./media/githook-1stjob-buildpostbuild.png)
+
+#### Postbuild actions
+* `catalogs/target/*.zip`
+
+![](./media/githook-prod-postbuildaction.png)
 
 # Scratch Pad
 Tests Jenkins post-commit hook to my public openshift-jenkins application.
