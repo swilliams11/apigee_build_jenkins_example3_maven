@@ -14,11 +14,18 @@
              <!--Step>
                    <Name>RF-400BadRequest</Name>
                </Step-->
-               
+
            </Request>
            <Response/>
            <Condition>(proxy.pathsuffix MatchesPath "/status/*") and (request.verb = "GET")</Condition>
        </Flow>
+       <Flow name="Create Catalog">
+            <Description>Create a new catalog item.</Description>
+            <Request>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/") and (request.verb = "POST")</Condition>
+        </Flow>
     </Flows>
     <PostFlow name="PostFlow">
         <Request/>
