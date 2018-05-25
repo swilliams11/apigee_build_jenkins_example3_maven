@@ -5,7 +5,16 @@ This repository demonstrates how to configure Jenkins to deploy Apigee Edge prox
 
 There are two sections:
 1. [Jenkins Build Triggered Manually](#jenkins-build-triggered-manually)
+  * [`apigee_build_jenkins_example3_maven_current`](#apigee_build_jenkins_example3_maven_current)
+  * [`apigee_build_jenkins_example3_maven_tests`](#apigee_build_jenkins_example3_maven_tests)
+  * [`apigee_build_jenkins_example3_maven_prod`](#project-apigee_build_jenkins_example3_maven_prod)
 2. [Jenkins Build Triggered from Github commit hook](#jenkins-build-triggered-from-github-commit-hook)
+  * [demo](#add-new-feature-demo)
+  * [Github Configuration](#github-configuration)
+  * [Jenkins Configuration](#jenkins-configuration)
+  * [Build/Deploy Job](#pullrequestbuilder_apigee_build_jenkins_example3_maven)
+  * [Test Job](#pullrequestbuilder_apigee_build_jenkins_example3_maven_tests)
+  * [Deploy job](#githook_apigee_build_jenkins_example3_maven_prod)
 
 # Jenkins Build Triggered Manually
 This section describes how to configure Jenkins so that it will
@@ -20,13 +29,13 @@ There are three Jenkins Jobs and all three are maven jobs.
 
 ![](./media/jenkins-jobs.png)
 
-1. `apigee_build_jenkins_example3_maven_current`
+1. [`apigee_build_jenkins_example3_maven_current`](#apigee_build_jenkins_example3_maven_current)
   * This job must be executed manually.  
   * It clones the repository, builds the Apigee Proxy bungle and deploys it to Apigee Edge.  
-2. `apigee_build_jenkins_example3_maven_tests`
+2. [`apigee_build_jenkins_example3_maven_tests`](#apigee_build_jenkins_example3_maven_tests)
   * This is executed only if the first job executes successfully.
   * It executes the JMeter tests against the test environment and publishes the results.
-3. `apigee_build_jenkins_example3_maven_prod`
+3. [`apigee_build_jenkins_example3_maven_prod`](#project-apigee_build_jenkins_example3_maven_prod)
   * This job is executed only if the previous job executes successfully.
   * It copies the workspace from the first job and uses that to deploy the proxy to the prod environment.  
   * The reason for this is to ensure that we are using the same proxy bundle that was tested against in the first job.  If we pulled the repository again, then we run the risk that a commit could have been executed against the repository (so the repo may have changed).  This ensures the proxy deployed to test and prod are the same.  
@@ -150,6 +159,14 @@ This demo uses feature branches.  The typical process is:
 * create a new feature branch based off the master branch and make all of their changes to that branch.
 * add test cases and test in the Apigee dev environment
 * submit a pull request to the master branch or whatever branch they cloned from
+
+## TOC
+* [demo](#add-new-feature-demo)
+* [Github Configuration](#github-configuration)
+* [Jenkins Configuration](#jenkins-configuration)
+* [Build/Deploy Job](#pullrequestbuilder_apigee_build_jenkins_example3_maven)
+* [Test Job](#pullrequestbuilder_apigee_build_jenkins_example3_maven_tests)
+* [Deploy job](#githook_apigee_build_jenkins_example3_maven_prod)
 
 ## Add New Feature Demo
 This section describes the typical Apigee developer adding a new feature (updating a proxy) in Github.
