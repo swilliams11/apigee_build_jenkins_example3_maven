@@ -8,6 +8,13 @@
         </Response>
     </PreFlow>
     <Flows>
+      <Flow name="flow feature 8">
+           <Description/>
+           <Request>
+           </Request>
+           <Response/>
+           <Condition>(proxy.pathsuffix MatchesPath "/feature8/*") and (request.verb = "GET")</Condition>
+       </Flow>
       <Flow name="flow feature 7">
            <Description/>
            <Request>
