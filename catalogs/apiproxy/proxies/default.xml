@@ -8,6 +8,13 @@
         </Response>
     </PreFlow>
     <Flows>
+      <Flow name="Create Catalog - feature 9">
+       <Description>Create a new catalog item.</Description>
+       <Request>
+       </Request>
+       <Response/>
+       <Condition>(proxy.pathsuffix MatchesPath "/feature9") and (request.verb = "POST")</Condition>
+   </Flow>
       <Flow name="flow feature 8">
            <Description/>
            <Request>
