@@ -9,7 +9,7 @@
     </PreFlow>
     <Flows>
      <Flow name="Create Catalog - feature 10 - test master">
-       <Description>Create a new catalog item.</Description>
+       <Description>Create a new catalog item. test</Description>
        <Request>
        </Request>
        <Response/>
