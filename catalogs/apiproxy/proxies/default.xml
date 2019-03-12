@@ -8,7 +8,7 @@
         </Response>
     </PreFlow>
     <Flows>
-     <Flow name="Create Catalog - feature 10">
+     <Flow name="Create Catalog - feature 10 - test master">
        <Description>Create a new catalog item.</Description>
        <Request>
        </Request>
