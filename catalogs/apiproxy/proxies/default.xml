@@ -15,7 +15,7 @@
        <Response/>
        <Condition>(proxy.pathsuffix MatchesPath "/feature10") and (request.verb = "POST")</Condition>
 </Flow>
-      <Flow name="Create Catalog - feature 9">
+      <Flow name="Create Catalog - feature 11">
        <Description>Create a new catalog item.</Description>
        <Request>
        </Request>
